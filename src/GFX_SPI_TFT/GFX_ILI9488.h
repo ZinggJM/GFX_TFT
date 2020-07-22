@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be the GFX_ILI9488 class for the ZxTFT library (instead of the GxCTRL_ILI9488 class for the GxTFT library, which doesn't work with SPI)
+// created by Jean-Marc Zingg to be the GFX_ILI9488 class for the GFX_TFT library
 // code extracts taken from https://github.com/Bodmer/TFT_HX8357
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
 //
@@ -10,10 +10,10 @@
 
 //#include <GFX_Extensions.h>
 #include <GFX_IO.h>
-#include "GXF_TFT_IO.h"
+#include "GFX_TFT_IO/GFX_TFT_IO.h"
 #include "GFX_Canvas16T.h"
 
-class GFX_ILI9488 : public GXF_TFT_IO
+class GFX_ILI9488 : public GFX_TFT_IO
 {
   public:
     GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
@@ -23,16 +23,16 @@ class GFX_ILI9488 : public GXF_TFT_IO
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
     void setRotation(uint8_t r);
-    void invertDisplay(boolean i);
-    void invert(boolean i);
-    void enableDisplay(boolean enable);
+    void invertDisplay(bool i);
+    void invert(bool i);
+    void enableDisplay(bool enable);
     void setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
-    void drawPixel(int16_t x, int16_t y, uint16_t color);
     void writePixel(int16_t x, int16_t y, uint16_t color);
+    void writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
+    void drawPixel(int16_t x, int16_t y, uint16_t color);
+    void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
     //void writePixels(uint16_t *colors, uint32_t len, bool block = true, bool bigEndian = false); // TO BE ADDED
     void writeColor(uint16_t color, uint32_t len);
-    void writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h,
-                       uint16_t color);
     void writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
     void writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
   private:

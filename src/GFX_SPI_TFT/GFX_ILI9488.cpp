@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be the GFX_ILI9488 class for the ZxTFT library (instead of the GxCTRL_ILI9488 class for the GxTFT library, which doesn't work with SPI)
+// created by Jean-Marc Zingg to be the GFX_ILI9488 class for the GFX_TFT library
 // code extracts taken from https://github.com/Bodmer/TFT_HX8357
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
 //
@@ -23,9 +23,9 @@
 
 GFX_ILI9488::GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
 #if defined(ESP8266)
-  GXF_TFT_IO(320, 480, cs_pin, dc_pin, rst_pin)
+  GFX_TFT_IO(320, 480, cs_pin, dc_pin, rst_pin)
 #else
-  GXF_TFT_IO(320, 480, &SPI, cs_pin, dc_pin, rst_pin)
+  GFX_TFT_IO(320, 480, &SPI, cs_pin, dc_pin, rst_pin)
 #endif
 {
   _bl_pin = bl_pin;
@@ -33,18 +33,18 @@ GFX_ILI9488::GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl
 }
 
 GFX_ILI9488::GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
-  GXF_TFT_IO(320, 480, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
+  GFX_TFT_IO(320, 480, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
   _bgr = MADCTL_BGR;
 }
 
 GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
-                             SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+                         SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
 #if defined(ESP8266)
-  GXF_TFT_IO(width, height, cs_pin, dc_pin, rst_pin)
+  GFX_TFT_IO(width, height, cs_pin, dc_pin, rst_pin)
 #else
-  GXF_TFT_IO(width, height, spi, cs_pin, dc_pin, rst_pin)
+  GFX_TFT_IO(width, height, spi, cs_pin, dc_pin, rst_pin)
 #endif
 {
   (void) spi;
@@ -53,8 +53,8 @@ GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
 }
 
 GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
-                             int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
-  GXF_TFT_IO(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
+                         int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+  GFX_TFT_IO(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
   _bgr = MADCTL_BGR;
@@ -243,19 +243,19 @@ void GFX_ILI9488::setRotation(uint8_t r)
   endWrite();
 }
 
-void GFX_ILI9488::invertDisplay(boolean i)
+void GFX_ILI9488::invertDisplay(bool i)
 {
   _bgr = i ? MADCTL_BGR : 0x00;
   setRotation(rotation);
 }
 
 
-void GFX_ILI9488::invert(boolean i)
+void GFX_ILI9488::invert(bool i)
 {
   invertDisplay(i);
 }
 
-void GFX_ILI9488::enableDisplay(boolean enable)
+void GFX_ILI9488::enableDisplay(bool enable)
 {
   startWrite();
   writeCommand(enable ? 0x29 : 0x28);  // Display ON / Display OFF
@@ -276,20 +276,6 @@ void GFX_ILI9488::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
   writeCommand(ILI9488_RAMWR);
 }
 
-void GFX_ILI9488::drawPixel(int16_t x, int16_t y, uint16_t color)
-{
-  // Clip first...
-  if ((x >= 0) && (x < _width) && (y >= 0) && (y < _height))
-  {
-    // THEN set up transaction (if needed) and draw...
-    startWrite();
-    setAddrWindow(x, y, 1, 1);
-    _writeColor16(color, 1);
-    endWrite();
-  }
-  //Serial.print(".");
-}
-
 void GFX_ILI9488::writePixel(int16_t x, int16_t y, uint16_t color)
 {
   // Clip first...
@@ -300,11 +286,6 @@ void GFX_ILI9488::writePixel(int16_t x, int16_t y, uint16_t color)
     _writeColor16(color, 1);
   }
   //Serial.print(".");
-}
-
-void GFX_ILI9488::writeColor(uint16_t color, uint32_t len)
-{
-  _writeColor16(color, len);
 }
 
 void GFX_ILI9488::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
@@ -321,6 +302,43 @@ void GFX_ILI9488::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint
   if ((w < 1) || (h < 1)) return;
   setAddrWindow(x, y, w, h);
   _writeColor16(color, uint32_t(w) * uint32_t(h));
+}
+
+void GFX_ILI9488::drawPixel(int16_t x, int16_t y, uint16_t color)
+{
+  // Clip first...
+  if ((x >= 0) && (x < _width) && (y >= 0) && (y < _height))
+  {
+    // THEN set up transaction (if needed) and draw...
+    startWrite();
+    setAddrWindow(x, y, 1, 1);
+    _writeColor16(color, 1);
+    endWrite();
+  }
+  //Serial.print(".");
+}
+
+void GFX_ILI9488::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+{
+  //  if ((x < 0) || (y < 0) || (w < 1) || (h < 1) || (x + w > _width) || (y + h > _height))
+  //  {
+  //    Serial.print("fillRect("); Serial.print(x); Serial.print(", "); Serial.print(y); Serial.print(", "); Serial.print(w); Serial.print(", "); Serial.print(h); Serial.println(") oops? "); delay(1);
+  //  }
+  // a correct clipping is the goal. try to achieve this
+  if (x < 0) w += x, x = 0;
+  if (y < 0) h += y, y = 0;
+  if (x + w > _width) w = _width - x;
+  if (y + h > _height) h = _height - y;
+  if ((w < 1) || (h < 1)) return;
+  startWrite();
+  setAddrWindow(x, y, w, h);
+  _writeColor16(color, uint32_t(w) * uint32_t(h));
+  endWrite();
+}
+
+void GFX_ILI9488::writeColor(uint16_t color, uint32_t len)
+{
+  _writeColor16(color, len);
 }
 
 void GFX_ILI9488::writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color)

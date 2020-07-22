@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be a standalone GFX_SSD1283A library (instead of the GxCTRL_SSD1283A class for the GxTFT library)
+// created by Jean-Marc Zingg to be the GFX_SSD1283A class for the GFX_TFT library
 // code extracts taken from https://github.com/lcdwiki/LCDWIKI_SPI
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
 //
@@ -12,10 +12,10 @@
 #include <GFX_IO.h>
 #include "GFX_Canvas16T.h"
 // comment out to use only GFX_IO
-//#include "GXF_TFT_IO.h"
+//#include "GFX_TFT_IO/GFX_TFT_IO.h"
 
-#ifdef _GXF_TFT_IO_H_
-#define SPI_GFX_Class GXF_TFT_IO
+#ifdef _GFX_TFT_IO_H_
+#define SPI_GFX_Class GFX_TFT_IO
 #else
 #define SPI_GFX_Class GFX_IO
 #endif
@@ -30,9 +30,9 @@ class GFX_SSD1283A : public SPI_GFX_Class
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
     void setRotation(uint8_t r);
-    void invertDisplay(boolean i);
-    void invert(boolean i);
-    void enableDisplay(boolean enable);
+    void invertDisplay(bool i);
+    void invert(bool i);
+    void enableDisplay(bool enable);
     void setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
   private:
     void _writeCommandData16(uint8_t cmd, uint16_t data);

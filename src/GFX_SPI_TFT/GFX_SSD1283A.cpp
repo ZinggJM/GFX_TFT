@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be a standalone GFX_SSD1283A library (instead of the GxCTRL_SSD1283A class for the GxTFT library)
+// created by Jean-Marc Zingg to be the GFX_SSD1283A class for the GFX_TFT library
 // code extracts taken from https://github.com/lcdwiki/LCDWIKI_SPI
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
 //
@@ -118,14 +118,14 @@ void GFX_SSD1283A::setRotation(uint8_t r)
   endWrite();
 }
 
-void GFX_SSD1283A::invertDisplay(boolean i)
+void GFX_SSD1283A::invertDisplay(bool i)
 {
   _inversion_bit = i ? 0x0800 : 0x0000;
   setRotation(rotation);
 }
 
 
-void GFX_SSD1283A::invert(boolean i)
+void GFX_SSD1283A::invert(bool i)
 {
   invertDisplay(i);
 }
@@ -184,7 +184,7 @@ void GFX_SSD1283A::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
   writeCommand(0x22);
 }
 
-void GFX_SSD1283A::enableDisplay(boolean enable)
+void GFX_SSD1283A::enableDisplay(bool enable)
 {
   if (_bl_pin >= 0) digitalWrite(_bl_pin, enable ? HIGH : LOW);
 }

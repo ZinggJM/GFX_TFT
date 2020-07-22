@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be the GFX_ILI9486 class for the ZxTFT library (instead of the GxCTRL_ILI9486 class for the GxTFT library)
+// created by Jean-Marc Zingg to be the GFX_ILI9486 class for the GFX_TFT library
 // code extracts taken from https://github.com/Bodmer/TFT_HX8357
 // spi kludge handling solution found in https://github.com/Bodmer/TFT_eSPI
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
@@ -80,12 +80,12 @@ void GFX_ILI9486::init(uint32_t freq)
   startWrite();
   if (_spi16_mode)
   {
-    _writeCommand16(0x3A);
+    writeCommand16(0x3A);
     SPI_WRITE16(0x55);  // use 16 bits per pixel color
-    _writeCommand16(0x36);
+    writeCommand16(0x36);
     SPI_WRITE16(0x48);  // MX, BGR == rotation 0
     // PGAMCTRL(Positive Gamma Control)
-    _writeCommand16(0xE0);
+    writeCommand16(0xE0);
     SPI_WRITE16(0x0F);
     SPI_WRITE16(0x1F);
     SPI_WRITE16(0x1C);
@@ -102,7 +102,7 @@ void GFX_ILI9486::init(uint32_t freq)
     SPI_WRITE16(0x0D);
     SPI_WRITE16(0x00);
     // NGAMCTRL(Negative Gamma Control)
-    _writeCommand16(0xE1);
+    writeCommand16(0xE1);
     SPI_WRITE16(0x0F);
     SPI_WRITE16(0x32);
     SPI_WRITE16(0x2E);
@@ -119,7 +119,7 @@ void GFX_ILI9486::init(uint32_t freq)
     SPI_WRITE16(0x20);
     SPI_WRITE16(0x00);
     // Digital Gamma Control 1
-    _writeCommand16(0xE2);
+    writeCommand16(0xE2);
     SPI_WRITE16(0x0F);
     SPI_WRITE16(0x32);
     SPI_WRITE16(0x2E);
@@ -135,9 +135,9 @@ void GFX_ILI9486::init(uint32_t freq)
     SPI_WRITE16(0x24);
     SPI_WRITE16(0x20);
     SPI_WRITE16(0x00);
-    _writeCommand16(0x11);  // Sleep OUT
+    writeCommand16(0x11);  // Sleep OUT
     delay(150);   // wait some time
-    _writeCommand16(0x29);  // Display ON
+    writeCommand16(0x29);  // Display ON
   }
   else
   {
@@ -209,7 +209,7 @@ void GFX_ILI9486::setRotation(uint8_t r)
   startWrite();
   if (_spi16_mode)
   {
-    _writeCommand16(ILI9486_MADCTL);
+    writeCommand16(ILI9486_MADCTL);
     switch (r & 3)
     {
       case 0:
@@ -248,14 +248,14 @@ void GFX_ILI9486::setRotation(uint8_t r)
   endWrite();
 }
 
-void GFX_ILI9486::invertDisplay(boolean i)
+void GFX_ILI9486::invertDisplay(bool i)
 {
   _bgr = i ? MADCTL_BGR : 0x00;
   setRotation(rotation);
 }
 
 
-void GFX_ILI9486::invert(boolean i)
+void GFX_ILI9486::invert(bool i)
 {
   invertDisplay(i);
 }
@@ -266,26 +266,26 @@ void GFX_ILI9486::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
   uint16_t ye = y + h - 1;
   if (_spi16_mode)
   {
-#if defined(_GXF_TFT_IO_H_)
-    _writeCommand16(ILI9486_CASET);
+#if defined(_GFX_TFT_IO_H_)
+    writeCommand16(ILI9486_CASET);
     uint16_t columns[] = {uint16_t(x >> 8), uint16_t(x & 0xFF), uint16_t(xe >> 8), uint16_t(xe & 0xFF)};
-    _writeData16(columns, 4);
-    _writeCommand16(ILI9486_PASET);
+    writeData16(columns, 4);
+    writeCommand16(ILI9486_PASET);
     uint16_t rows[] = {uint16_t(y >> 8), uint16_t(y & 0xFF), uint16_t(ye >> 8), uint16_t(ye & 0xFF)};
-    _writeData16(rows, 4);
-    _writeCommand16(ILI9486_RAMWR);
+    writeData16(rows, 4);
+    writeCommand16(ILI9486_RAMWR);
 #else
-    _writeCommand16(ILI9486_CASET);
+    writeCommand16(ILI9486_CASET);
     SPI_WRITE16(x >> 8);
     SPI_WRITE16(x & 0xFF);
     SPI_WRITE16(xe >> 8);
     SPI_WRITE16(xe & 0xFF);
-    _writeCommand16(ILI9486_PASET);
+    writeCommand16(ILI9486_PASET);
     SPI_WRITE16(y >> 8);
     SPI_WRITE16(y & 0xFF);
     SPI_WRITE16(ye >> 8);
     SPI_WRITE16(ye & 0xFF);
-    _writeCommand16(ILI9486_RAMWR);
+    writeCommand16(ILI9486_RAMWR);
 #endif
   }
   else
@@ -300,17 +300,10 @@ void GFX_ILI9486::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
   }
 }
 
-void GFX_ILI9486::enableDisplay(boolean enable)
+void GFX_ILI9486::enableDisplay(bool enable)
 {
   startWrite();
-  if (_spi16_mode) _writeCommand16(enable ? 0x29 : 0x28);  // Display ON / Display OFF
+  if (_spi16_mode) writeCommand16(enable ? 0x29 : 0x28);  // Display ON / Display OFF
   else  writeCommand(enable ? 0x29 : 0x28);  // Display ON / Display OFF
   endWrite();
-}
-
-void GFX_ILI9486::_writeCommand16(uint16_t cmd)
-{
-  SPI_DC_LOW();
-  SPI_WRITE16(cmd);
-  SPI_DC_HIGH();
 }
