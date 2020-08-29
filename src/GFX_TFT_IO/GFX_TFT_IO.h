@@ -22,6 +22,8 @@ class GFX_TFT_IO : public GFX_IO
     GFX_TFT_IO(uint16_t w, uint16_t h, tftBusWidth busWidth, int8_t d0, int8_t wr, int8_t dc, int8_t cs = -1, int8_t rst = -1, int8_t rd = -1);
     GFX_TFT_IO(uint16_t w, uint16_t h, GFX_TFT_IO_Plugin* plugin);
     // (overridden) virtual methods, use writeData16() for use with GFX_TFT_IO_Plugin!
+    virtual void startWrite();
+    virtual void endWrite();
     virtual void writePixel(int16_t x, int16_t y, uint16_t color);
     virtual void writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
     virtual void drawPixel(int16_t x, int16_t y, uint16_t color);

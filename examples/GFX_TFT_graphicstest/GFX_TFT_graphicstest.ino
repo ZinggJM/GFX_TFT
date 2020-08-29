@@ -24,10 +24,16 @@
 
 // include the display class (select one)
 //#include <GFX_ILI9341.h>
-#include <GFX_OTM8009A.h>
+//#include <GFX_OTM8009A.h>
+#include <GFX_SSD1963.h>
+//#include <GFX_ILI9806.h>
 
 // include the optional io plugin class (select none or one)
-#include <GFX_TFT_IO/FSMC/GFX_STM32F407ZGM4_FSMC.h>
+//#include <GFX_TFT_IO/FSMC/GFX_STM32F407ZGM4_FSMC.h>
+#include <GFX_TFT_IO/GFX_STM32F103C.h>
+//#include <GFX_TFT_IO/GFX_STM32F103C_TIKY.h>
+//#include <GFX_TFT_IO/GFX_STM32F103V_TIKY.h>
+//#include <GFX_TFT_IO/FSMC/GFX_STM32F103V_FSMC_TIKY.h>
 
 #if defined(GFX_TFT_CLASS) && defined(GFX_TFT_IO_PLUGIN_CLASS)
 
@@ -63,9 +69,13 @@ GFX_ILI9341 tft(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BL=D2*/ 4); // my epd
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
+//#undef Serial
+//#define Serial if(0) Serial1
+
 void setup()
 {
   Serial.begin(115200);
+  delay(1000);
   Serial.println();
   Serial.println("setup");
   //Serial.println(String(controller.name) + " Test on " + String(io.name));

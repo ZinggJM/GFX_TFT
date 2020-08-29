@@ -13,6 +13,8 @@ class GFX_TFT_IO_Plugin
 {
   public:
     virtual void init() = 0;
+    virtual void startWrite() = 0;
+    virtual void endWrite() = 0;
     virtual void writeCommand(uint8_t cmd) = 0;
     virtual void writeCommand16(uint16_t cmd) = 0;
     virtual void writeData(uint8_t data) = 0;

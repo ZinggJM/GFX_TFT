@@ -2,7 +2,7 @@
 //
 // License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
 //
-// this is the io class for STM32F407ZGM4 board with FMSC TFT connector, e.g. for 
+// this is the io class for STM32F407ZGM4 board with FMSC TFT connector, e.g. for
 // https://www.aliexpress.com/item/STM32F407ZGT6-Development-Board-ARM-M4-STM32F4-cortex-M4-core-Board-Compatibility-Multiple-Extension/32795142050.html
 // and the matching TFTs of the same offer
 //
@@ -33,6 +33,8 @@ class GFX_STM32F407ZGM4_FSMC : public GFX_TFT_IO_Plugin
     uint8_t readData();
     uint16_t readData16();
     uint32_t readRawData32(uint8_t part); // debug purpose
+    void startWrite() {};
+    void endWrite() {};
     void writeCommand(uint8_t cmd);
     void writeCommand16(uint16_t cmd);
     void writeData(uint8_t data);

@@ -2,7 +2,10 @@
 
 This library supports some TFTs using GFX_IO (my Adafruit_SPITFT clone)
 
-### Version 1.0.1
+### Version 1.0.2
+- work in progress version(s), using same version number
+- adding controllers and io plugins from GxTFT
+#### Version 1.0.1
 - added option for IO driver plugins
 - added IO driver plugin GFX_STM32F407ZGM4_FSMC (for package "STM32 Cores by STMicroelectronics")
 - added display class GFX_ILI9341

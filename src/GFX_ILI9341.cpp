@@ -73,6 +73,8 @@
 #define ILI9341_MADCTL_BGR 0x08
 #define ILI9341_MADCTL_MH  0x04
 
+#define RGB_or_BGR ILI9341_MADCTL_BGR // BGR for my screen
+
 GFX_ILI9341::GFX_ILI9341(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(240, 320, cs_pin, dc_pin, rst_pin)
@@ -81,14 +83,14 @@ GFX_ILI9341::GFX_ILI9341(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl
 #endif
 {
   _bl_pin = bl_pin;
-  _bgr = ILI9341_MADCTL_BGR;
+  _bgr = RGB_or_BGR;
 }
 
 GFX_ILI9341::GFX_ILI9341(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
   GFX_TFT_IO(240, 320, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
-  _bgr = ILI9341_MADCTL_BGR;
+  _bgr = RGB_or_BGR;
 }
 
 GFX_ILI9341::GFX_ILI9341(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
@@ -100,13 +102,13 @@ GFX_ILI9341::GFX_ILI9341(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst
 {
   (void) spi;
   _bl_pin = bl_pin;
-  _bgr = ILI9341_MADCTL_BGR;
+  _bgr = RGB_or_BGR;
 }
 
 GFX_ILI9341::GFX_ILI9341(GFX_TFT_IO_Plugin& plugin) : GFX_TFT_IO(240, 320, &plugin)
 {
   _bl_pin = -1;
-  _bgr = ILI9341_MADCTL_BGR;
+  _bgr = RGB_or_BGR;
 }
 
 void GFX_ILI9341::begin(uint32_t freq)

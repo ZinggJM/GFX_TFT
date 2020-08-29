@@ -33,6 +33,18 @@ GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, GFX_TFT_IO_Plugin* plugin) :
 {
 }
 
+void GFX_TFT_IO::startWrite()
+{
+  if (_plugin) _plugin->startWrite();
+  else GFX_IO::startWrite();
+}
+
+void GFX_TFT_IO::endWrite()
+{
+  if (_plugin) _plugin->endWrite();
+  else GFX_IO::endWrite();
+}
+
 void GFX_TFT_IO::writePixel(int16_t x, int16_t y, uint16_t color)
 {
   // Clip first...
@@ -110,8 +122,8 @@ void GFX_TFT_IO::fillScreen(uint16_t color)
 
 void GFX_TFT_IO::init(uint32_t freq, uint8_t spiMode)
 {
-  GFX_IO::initSPI(freq, spiMode);
   if (_plugin) _plugin->init();
+  else GFX_IO::initSPI(freq, spiMode);
 }
 
 void GFX_TFT_IO::writeCommand(uint8_t cmd)
@@ -123,7 +135,7 @@ void GFX_TFT_IO::writeCommand(uint8_t cmd)
 void GFX_TFT_IO::writeCommand16(uint16_t cmd)
 {
   if (_plugin) _plugin->writeCommand16(cmd);
-  else 
+  else
   {
     SPI_DC_LOW();
     SPI_WRITE16(cmd);

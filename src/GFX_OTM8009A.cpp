@@ -24,6 +24,8 @@
 #define OTM8009A_MADCTL_RGB 0x00
 #define OTM8009A_MADCTL_BGR 0x08
 
+#define RGB_or_BGR 0x00 // RGB
+
 GFX_OTM8009A::GFX_OTM8009A(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, rst_pin)
@@ -32,14 +34,14 @@ GFX_OTM8009A::GFX_OTM8009A(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t 
 #endif
 {
   _bl_pin = bl_pin;
-  _bgr = 0;
+  _bgr = RGB_or_BGR;
 }
 
 GFX_OTM8009A::GFX_OTM8009A(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
-  _bgr = 0;
+  _bgr = RGB_or_BGR;
 }
 
 GFX_OTM8009A::GFX_OTM8009A(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
@@ -51,13 +53,13 @@ GFX_OTM8009A::GFX_OTM8009A(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t r
 {
   (void) spi;
   _bl_pin = bl_pin;
-  _bgr = 0;
+  _bgr = RGB_or_BGR;
 }
 
 GFX_OTM8009A::GFX_OTM8009A(GFX_TFT_IO_Plugin& plugin) : GFX_TFT_IO(480, 800, &plugin)
 {
   _bl_pin = -1;
-  _bgr = 0;
+  _bgr = RGB_or_BGR;
 }
 
 void GFX_OTM8009A::begin(uint32_t freq)
@@ -438,9 +440,9 @@ void GFX_OTM8009A::invert(bool i)
 
 void GFX_OTM8009A::enableDisplay(bool enable)
 {
-  //  startWrite();
-  //  writeCommand(enable ? 0x29 : 0x28);  // Display ON / Display OFF
-  //  endWrite();
+  startWrite();
+  writeCommand16(enable ? 0x2900 : 0x2800);  // Display ON / Display OFF
+  endWrite();
   if (_bl_pin >= 0) digitalWrite(_bl_pin, enable ? HIGH : LOW);
   enableBacklight(enable); // for _plugin
 }
