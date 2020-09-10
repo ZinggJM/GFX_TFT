@@ -132,18 +132,18 @@ void GFX_SSD1963::init(uint32_t freq)
   writeData(0x01);
   writeData(0xDF);
 
-  writeCommand(0x29);    //display on
+  writeCommand(0x29); // display on
 
-  writeCommand(0xBE);    //set PWM for B/L
-  writeData(0x06);
-  writeData(0xF0);
-  writeData(0x01);
-  writeData(0xF0);
-  writeData(0x00);
-  writeData(0x00);
+  writeCommand(0xBE); // set PWM for B/L (set_pwm_conf)
+  writeData(0x06); // PWMF (frequency)
+  writeData(0xF0); // PWM  (duty cycle 240/256 94%)
+  writeData(0x01); // PWM conf (PWM enable, controlled by host)
+  writeData(0xF0); // DBC maximum brightness (94%)
+  writeData(0x00); // DBC minimum brighness (0%)
+  writeData(0x00); // Brightness prescaler (off)
 
-  writeCommand(0xD0);
-  writeData(0x0D);
+  writeCommand(0xD0); // set_dbc_conf
+  writeData(0x0D); // DBC enable, agressive mode
 
   writeCommand(0x2C);
   endWrite();

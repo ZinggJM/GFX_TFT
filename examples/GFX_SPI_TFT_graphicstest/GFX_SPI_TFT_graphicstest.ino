@@ -23,9 +23,10 @@
 #include <GFX_TFT.h>
 
 // include the hardware specific class (select one)
-#include <GFX_SPI_TFT/GFX_SSD1283A.h>
+//#include <GFX_SPI_TFT/GFX_SSD1283A.h>
 //#include <GFX_SPI_TFT/GFX_ILI9486.h>
 //#include <GFX_SPI_TFT/GFX_ILI9488.h>
+#include <GFX_SPI_TFT/GFX_SPI_RA8875.h>
 
 // adapt the constructor parameters to your wiring for the appropriate processor conditional, 
 // or add a new one or adapt the catch all other default
@@ -83,6 +84,16 @@ GFX_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); //
 #endif
 #endif
 
+#ifdef _GFX_SPI_RA8875_H_
+#if defined (ESP8266)
+GFX_SPI_RA8875 tft(/*CS=D8*/ SS, /*DC=*/ -1, /*RST=D3*/ 0, /*BL=*/ -1);
+#else
+// DC currently needed for Due, bug in GFX_IO
+GFX_SPI_RA8875 tft(/*CS=*/ SS, /*DC=*/ 6, /*RST=*/ 5, /*BL=*/ -1); // e.g. Arduino Due
+#endif
+#endif
+
+
 #if !defined(ESP8266)
 #define yield()
 #endif
@@ -99,6 +110,7 @@ GFX_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); //
 void setup()
 {
   Serial.begin(115200);
+  while (!Serial) yield();
   Serial.println();
   Serial.println("setup");
   //Serial.println(String(controller.name) + " Test on " + String(io.name));
