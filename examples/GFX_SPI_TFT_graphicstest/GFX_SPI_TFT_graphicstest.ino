@@ -58,6 +58,11 @@ GFX_SSD1283A tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*LED=*/ 7); //hardware sp
 GFX_ILI9486 tft(/*CS=D8*/ SS, /*DC=D4*/ 2, /*RST=D3*/ 0); // my proto board
 #elif defined(ARDUINO_ARCH_SAM)
 GFX_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 6, /*RST=*/ 5); // my proto board
+#elif defined(ARDUINO_ARCH_SAMD)
+// mapping suggestion for Arduino MKR1000 or MKRZERO
+// note: can't use SS on MKR1000: is defined as 24, should be 4
+// BUSY -> 5, RST -> 6, DC -> 7, CS-> 4, CLK -> 9, DIN -> 8 // my e-paper connector
+GFX_ILI9486 tft(/*CS=*/ 4, /*DC=*/ 7, /*RST=*/ 6); // to my proto board
 #else
 // catch all other default
 GFX_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9); //
