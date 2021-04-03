@@ -1,11 +1,11 @@
-// created by Jean-Marc Zingg to be the GFX_ILI9488 class for the GFX_TFT library
+// created by Jean-Marc Zingg to be the GFX_SPI_ILI9488 class for the GFX_TFT library
 // code extracts taken from https://github.com/Bodmer/TFT_HX8357
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
 //
 // License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
 //
 
-#include "GFX_ILI9488.h"
+#include "GFX_SPI_ILI9488.h"
 
 #define SPI_SPEED 40000000
 
@@ -21,7 +21,7 @@
 #define MADCTL_BGR 0x08
 #define MADCTL_MH  0x04
 
-GFX_ILI9488::GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_ILI9488::GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(320, 480, cs_pin, dc_pin, rst_pin)
 #else
@@ -32,14 +32,14 @@ GFX_ILI9488::GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl
   _bgr = MADCTL_BGR;
 }
 
-GFX_ILI9488::GFX_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_ILI9488::GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
   GFX_TFT_IO(320, 480, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
   _bgr = MADCTL_BGR;
 }
 
-GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
+GFX_SPI_ILI9488::GFX_SPI_ILI9488(uint16_t width, uint16_t height,
                          SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(width, height, cs_pin, dc_pin, rst_pin)
@@ -52,7 +52,7 @@ GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
   _bgr = MADCTL_BGR;
 }
 
-GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
+GFX_SPI_ILI9488::GFX_SPI_ILI9488(uint16_t width, uint16_t height,
                          int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
   GFX_TFT_IO(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
@@ -60,12 +60,12 @@ GFX_ILI9488::GFX_ILI9488(uint16_t width, uint16_t height,
   _bgr = MADCTL_BGR;
 }
 
-void GFX_ILI9488::begin(uint32_t freq)
+void GFX_SPI_ILI9488::begin(uint32_t freq)
 {
   init(freq);
 }
 
-void GFX_ILI9488::init(uint32_t freq)
+void GFX_SPI_ILI9488::init(uint32_t freq)
 {
   Serial.println("init");
   if (!freq) freq = SPI_SPEED;
@@ -220,7 +220,7 @@ void GFX_ILI9488::init(uint32_t freq)
   endWrite();
 }
 
-void GFX_ILI9488::setRotation(uint8_t r)
+void GFX_SPI_ILI9488::setRotation(uint8_t r)
 {
   GFX_Root::setRotation(r);
   startWrite();
@@ -243,19 +243,19 @@ void GFX_ILI9488::setRotation(uint8_t r)
   endWrite();
 }
 
-void GFX_ILI9488::invertDisplay(bool i)
+void GFX_SPI_ILI9488::invertDisplay(bool i)
 {
   _bgr = i ? MADCTL_BGR : 0x00;
   setRotation(rotation);
 }
 
 
-void GFX_ILI9488::invert(bool i)
+void GFX_SPI_ILI9488::invert(bool i)
 {
   invertDisplay(i);
 }
 
-void GFX_ILI9488::enableDisplay(bool enable)
+void GFX_SPI_ILI9488::enableDisplay(bool enable)
 {
   startWrite();
   writeCommand(enable ? 0x29 : 0x28);  // Display ON / Display OFF
@@ -263,7 +263,7 @@ void GFX_ILI9488::enableDisplay(bool enable)
   endWrite();
 }
 
-void GFX_ILI9488::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+void GFX_SPI_ILI9488::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   uint16_t xe = x + w - 1;
   uint16_t ye = y + h - 1;
@@ -276,7 +276,7 @@ void GFX_ILI9488::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
   writeCommand(ILI9488_RAMWR);
 }
 
-void GFX_ILI9488::writePixel(int16_t x, int16_t y, uint16_t color)
+void GFX_SPI_ILI9488::writePixel(int16_t x, int16_t y, uint16_t color)
 {
   // Clip first...
   if ((x >= 0) && (x < _width) && (y >= 0) && (y < _height))
@@ -288,7 +288,7 @@ void GFX_ILI9488::writePixel(int16_t x, int16_t y, uint16_t color)
   //Serial.print(".");
 }
 
-void GFX_ILI9488::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+void GFX_SPI_ILI9488::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
 {
   //  if ((x < 0) || (y < 0) || (w < 1) || (h < 1) || (x + w > _width) || (y + h > _height))
   //  {
@@ -304,7 +304,7 @@ void GFX_ILI9488::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint
   _writeColor16(color, uint32_t(w) * uint32_t(h));
 }
 
-void GFX_ILI9488::drawPixel(int16_t x, int16_t y, uint16_t color)
+void GFX_SPI_ILI9488::drawPixel(int16_t x, int16_t y, uint16_t color)
 {
   // Clip first...
   if ((x >= 0) && (x < _width) && (y >= 0) && (y < _height))
@@ -318,7 +318,7 @@ void GFX_ILI9488::drawPixel(int16_t x, int16_t y, uint16_t color)
   //Serial.print(".");
 }
 
-void GFX_ILI9488::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+void GFX_SPI_ILI9488::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
 {
   //  if ((x < 0) || (y < 0) || (w < 1) || (h < 1) || (x + w > _width) || (y + h > _height))
   //  {
@@ -336,22 +336,22 @@ void GFX_ILI9488::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t 
   endWrite();
 }
 
-void GFX_ILI9488::writeColor(uint16_t color, uint32_t len)
+void GFX_SPI_ILI9488::writeColor(uint16_t color, uint32_t len)
 {
   _writeColor16(color, len);
 }
 
-void GFX_ILI9488::writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color)
+void GFX_SPI_ILI9488::writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color)
 {
   writeFillRect(x, y, w, 1, color);
 }
 
-void GFX_ILI9488::writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color)
+void GFX_SPI_ILI9488::writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color)
 {
   writeFillRect(x, y, 1, h, color);
 }
 
-void GFX_ILI9488::_writeColor16(uint16_t data, uint32_t n)
+void GFX_SPI_ILI9488::_writeColor16(uint16_t data, uint32_t n)
 {
   if (0 == connection) // TFT_HARD_SPI
   {
@@ -392,7 +392,7 @@ void GFX_ILI9488::_writeColor16(uint16_t data, uint32_t n)
 #endif
 
 
-void GFX_ILI9488::_writeColor16(const uint16_t* data, uint32_t n)
+void GFX_SPI_ILI9488::_writeColor16(const uint16_t* data, uint32_t n)
 {
   if (0 == connection) // TFT_HARD_SPI
   {

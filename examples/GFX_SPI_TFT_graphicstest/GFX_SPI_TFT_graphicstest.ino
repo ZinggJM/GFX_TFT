@@ -24,8 +24,8 @@
 
 // include the hardware specific class (select one)
 //#include <GFX_SPI_TFT/GFX_SSD1283A.h>
-//#include <GFX_SPI_TFT/GFX_ILI9486.h>
-//#include <GFX_SPI_TFT/GFX_ILI9488.h>
+//#include <GFX_SPI_TFT/GFX_SPI_ILI9486.h>
+//#include <GFX_SPI_TFT/GFX_SPI_ILI9488.h>
 #include <GFX_SPI_TFT/GFX_SPI_RA8875.h>
 
 // adapt the constructor parameters to your wiring for the appropriate processor conditional, 
@@ -55,17 +55,17 @@ GFX_SSD1283A tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*LED=*/ 7); //hardware sp
 
 #if defined(_GFX_ILI9486_H_)
 #if defined (ESP8266)
-GFX_ILI9486 tft(/*CS=D8*/ SS, /*DC=D4*/ 2, /*RST=D3*/ 0); // my proto board
+GFX_SPI_ILI9486 tft(/*CS=D8*/ SS, /*DC=D4*/ 2, /*RST=D3*/ 0); // my proto board
 #elif defined(ARDUINO_ARCH_SAM)
-GFX_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 6, /*RST=*/ 5); // my proto board
+GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 6, /*RST=*/ 5); // my proto board
 #elif defined(ARDUINO_ARCH_SAMD)
 // mapping suggestion for Arduino MKR1000 or MKRZERO
 // note: can't use SS on MKR1000: is defined as 24, should be 4
 // BUSY -> 5, RST -> 6, DC -> 7, CS-> 4, CLK -> 9, DIN -> 8 // my e-paper connector
-GFX_ILI9486 tft(/*CS=*/ 4, /*DC=*/ 7, /*RST=*/ 6); // to my proto board
+GFX_SPI_ILI9486 tft(/*CS=*/ 4, /*DC=*/ 7, /*RST=*/ 6); // to my proto board
 #else
 // catch all other default
-GFX_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9); //
+GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9); //
 #endif
 #endif
 
@@ -73,19 +73,19 @@ GFX_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9); //
 // e.g. https://www.aliexpress.com/item/32908809356.html
 // note: this board is for 3.3V supply and data lines!
 #if defined (ESP8266)
-GFX_ILI9488 tft(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BL=D2*/ 4); // my epd connection shield
+GFX_SPI_ILI9488 tft(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BL=D2*/ 4); // my epd connection shield
 #elif defined(ESP32)
-GFX_ILI9488 tft(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BL=*/ 4); // my epd connection proto board
+GFX_SPI_ILI9488 tft(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BL=*/ 4); // my epd connection proto board
 #elif defined(_BOARD_GENERIC_STM32F103C_H_) || defined(ARDUINO_ARCH_STM32)
-GFX_ILI9488 tft(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BL=*/ 1); // my epd connection proto board with bluepill
+GFX_SPI_ILI9488 tft(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BL=*/ 1); // my epd connection proto board with bluepill
 #elif defined(ARDUINO_ARCH_SAM)
-GFX_ILI9488 tft(/*CS=77*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); // my epd connection shield for Arduino Due
+GFX_SPI_ILI9488 tft(/*CS=77*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); // my epd connection shield for Arduino Due
 #elif defined(__AVR)
-//GFX_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); // my UNO epd connection shield with voltage dividers does not work
-GFX_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); // my 3.3V Pro Mini epd connection board does work
+//GFX_SPI_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); // my UNO epd connection shield with voltage dividers does not work
+GFX_SPI_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); // my 3.3V Pro Mini epd connection board does work
 #else
 // catch all other default
-GFX_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); //
+GFX_SPI_ILI9488 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BL=*/ 7); //
 #endif
 #endif
 

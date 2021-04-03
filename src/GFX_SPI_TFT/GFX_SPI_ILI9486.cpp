@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be the GFX_ILI9486 class for the GFX_TFT library
+// created by Jean-Marc Zingg to be the GFX_SPI_ILI9486 class for the GFX_TFT library
 // code extracts taken from https://github.com/Bodmer/TFT_HX8357
 // spi kludge handling solution found in https://github.com/Bodmer/TFT_eSPI
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
@@ -6,7 +6,7 @@
 // License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
 //
 
-#include "GFX_ILI9486.h"
+#include "GFX_SPI_ILI9486.h"
 
 #define SPI_SPEED 20000000 // max reliable speed is 20Mhz for RPi SPI kludge
 //#define SPI_SPEED 4000000
@@ -23,7 +23,7 @@
 #define MADCTL_BGR 0x08
 #define MADCTL_MH  0x04
 
-GFX_ILI9486::GFX_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
+GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(320, 480, cs_pin, dc_pin, rst_pin)
 #else
@@ -34,14 +34,14 @@ GFX_ILI9486::GFX_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
   _bgr = MADCTL_BGR;
 }
 
-GFX_ILI9486::GFX_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
+GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
   SPI_GFX_Class(320, 480, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _spi16_mode = true;
   _bgr = MADCTL_BGR;
 }
 
-GFX_ILI9486::GFX_ILI9486(uint16_t width, uint16_t height,
+GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
                              SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(width, height, cs_pin, dc_pin, rst_pin)
@@ -54,7 +54,7 @@ GFX_ILI9486::GFX_ILI9486(uint16_t width, uint16_t height,
   _bgr = MADCTL_BGR;
 }
 
-GFX_ILI9486::GFX_ILI9486(uint16_t width, uint16_t height,
+GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
                              int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
   SPI_GFX_Class(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
@@ -62,17 +62,17 @@ GFX_ILI9486::GFX_ILI9486(uint16_t width, uint16_t height,
   _bgr = MADCTL_BGR;
 }
 
-void GFX_ILI9486::setSpiKludge(bool rpi_spi16_mode)
+void GFX_SPI_ILI9486::setSpiKludge(bool rpi_spi16_mode)
 {
   _spi16_mode = rpi_spi16_mode;
 }
 
-void GFX_ILI9486::begin(uint32_t freq)
+void GFX_SPI_ILI9486::begin(uint32_t freq)
 {
   init(freq);
 }
 
-void GFX_ILI9486::init(uint32_t freq)
+void GFX_SPI_ILI9486::init(uint32_t freq)
 {
   Serial.println("init");
   if (!freq) freq = SPI_SPEED;
@@ -203,7 +203,7 @@ void GFX_ILI9486::init(uint32_t freq)
   endWrite();
 }
 
-void GFX_ILI9486::setRotation(uint8_t r)
+void GFX_SPI_ILI9486::setRotation(uint8_t r)
 {
   GFX_Root::setRotation(r);
   startWrite();
@@ -248,19 +248,19 @@ void GFX_ILI9486::setRotation(uint8_t r)
   endWrite();
 }
 
-void GFX_ILI9486::invertDisplay(bool i)
+void GFX_SPI_ILI9486::invertDisplay(bool i)
 {
   _bgr = i ? MADCTL_BGR : 0x00;
   setRotation(rotation);
 }
 
 
-void GFX_ILI9486::invert(bool i)
+void GFX_SPI_ILI9486::invert(bool i)
 {
   invertDisplay(i);
 }
 
-void GFX_ILI9486::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+void GFX_SPI_ILI9486::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   uint16_t xe = x + w - 1;
   uint16_t ye = y + h - 1;
@@ -300,7 +300,7 @@ void GFX_ILI9486::setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
   }
 }
 
-void GFX_ILI9486::enableDisplay(bool enable)
+void GFX_SPI_ILI9486::enableDisplay(bool enable)
 {
   startWrite();
   if (_spi16_mode) writeCommand16(enable ? 0x29 : 0x28);  // Display ON / Display OFF

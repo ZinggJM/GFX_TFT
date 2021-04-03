@@ -2,7 +2,15 @@
 
 This library supports some TFTs using GFX_IO (my Adafruit_SPITFT clone)
 
-### Version 1.0.3
+### Version 1.0.4
+- renamed SPI display classes GFX_ILI9486, GFX_ILI9488 to GFX_SPI_ILI9486, GFX_SPI_ILI9488
+- added display classes GFX_ILI9486, GFX_ILI9488, GFX_NT35510, GFX_ST7796S
+- added IO plugins GFX_STM32F103ZET6 and GFX_STM32F103ZET6_FSMC
+- added IO plugins GFX_STM32F103ZET6M3 and GFX_STM32F103ZET6M3
+- added IO plugins GFX_STM32F407VxT6 and GFX_STM32F407VxT6_FSMC
+- added IO plugins GFX_STM32F407ZGM4 and GFX_STM32F407ZGM4_FSMC
+- added GFX_TFT_known_configurations.h to example GFX_TFT_graphicstest
+#### Version 1.0.3
 - added IO plugins GFX_STM32Nucleo144 and GFX_STM32Nucleo144_FSMC
 - added IO plugins GFX_STM32F407VET6 and GFX_STM32F407VET6_FSMC
 - added IO plugins GFX_STM32F407ZET6 and GFX_STM32F407ZET6_FSMC

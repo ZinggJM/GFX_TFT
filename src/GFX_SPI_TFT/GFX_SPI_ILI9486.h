@@ -1,4 +1,4 @@
-// created by Jean-Marc Zingg to be the GFX_ILI9486 class for the GFX_TFT library
+// created by Jean-Marc Zingg to be the GFX_SPI_ILI9486 class for the GFX_TFT library
 // code extracts taken from https://github.com/Bodmer/TFT_HX8357
 // spi kludge handling solution found in https://github.com/Bodmer/TFT_eSPI
 // code extracts taken from https://github.com/adafruit/Adafruit-GFX-Library
@@ -6,8 +6,8 @@
 // License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
 //
 
-#ifndef _GFX_ILI9486_H_
-#define _GFX_ILI9486_H_
+#ifndef _GFX_SPI_ILI9486_H_
+#define _GFX_SPI_ILI9486_H_
 
 //#include <GFX_Extensions.h>
 #include <GFX_IO.h>
@@ -21,13 +21,13 @@
 #define SPI_GFX_Class GFX_IO
 #endif
 
-class GFX_ILI9486 : public SPI_GFX_Class
+class GFX_SPI_ILI9486 : public SPI_GFX_Class
 {
   public:
-    GFX_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin);
-    GFX_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin = -1);
-    GFX_ILI9486(uint16_t width, uint16_t height, SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1);
-    GFX_ILI9486(uint16_t width, uint16_t height, int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin = -1);
+    GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin);
+    GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin = -1);
+    GFX_SPI_ILI9486(uint16_t width, uint16_t height, SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1);
+    GFX_SPI_ILI9486(uint16_t width, uint16_t height, int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin = -1);
     void setSpiKludge(bool rpi_spi16_mode = true); // call with false before init or begin to disable
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
@@ -41,4 +41,4 @@ class GFX_ILI9486 : public SPI_GFX_Class
     int8_t _bgr;
 };
 
-#endif // _GFX_ILI9486_H_
+#endif // _GFX_SPI_ILI9486_H_

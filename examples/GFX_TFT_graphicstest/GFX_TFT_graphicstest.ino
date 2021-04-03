@@ -22,9 +22,20 @@
 // include library, make path known
 #include <GFX_TFT.h>
 
+// select a known configuration (by uncomment in following file):
+#include "GFX_TFT_known_configurations.h"
+
+// or select a configuration by uncommenting driver class, optional IO plugin, and display instance
+
+#ifndef GFX_TFT_CLASS // not selected by GFX_TFT_known_configurations.h
+
 // include the display class (select one)
 //#include <GFX_ILI9341.h>
+//#include <GFX_ILI9486.h>
+//#include <GFX_ILI9488.h>
+//#include <GFX_ST7796S.h>
 //#include <GFX_OTM8009A.h>
+//#include <GFX_NT35510.h>
 //#include <GFX_SSD1963.h>
 //#include <GFX_ILI9806.h>
 
@@ -34,10 +45,18 @@
 //#include <GFX_TFT_IO/GFX_STM32F103C_TIKY.h>
 //#include <GFX_TFT_IO/GFX_STM32F103V_TIKY.h>
 //#include <GFX_TFT_IO/FSMC/GFX_STM32F103V_FSMC_TIKY.h>
+//#include <GFX_TFT_IO/GFX_STM32F103ZET6.h>
+//#include <GFX_TFT_IO/FSMC/GFX_STM32F103ZET6_FSMC.h>
+//#include <GFX_TFT_IO/GFX_STM32F103ZET6M3.h>
+//#include <GFX_TFT_IO/FSMC/GFX_STM32F103ZET6M3_FSMC.h>
 //#include <GFX_TFT_IO/GFX_STM32F407VET6.h>
 //#include <GFX_TFT_IO/FSMC/GFX_STM32F407VET6_FSMC.h>
+//#include <GFX_TFT_IO/GFX_STM32F407VxT6.h>
+//#include <GFX_TFT_IO/FSMC/GFX_STM32F407VxT6_FSMC.h>
 //#include <GFX_TFT_IO/GFX_STM32F407ZET6.h>
 //#include <GFX_TFT_IO/FSMC/GFX_STM32F407ZET6_FSMC.h>
+//#include <GFX_TFT_IO/GFX_STM32F407ZGM4.h>
+//#include <GFX_TFT_IO/FSMC/GFX_STM32F407ZGM4_FSMC.h>
 //#include <GFX_TFT_IO/GFX_STM32Nucleo144.h>
 //#include <GFX_TFT_IO/FSMC/GFX_STM32Nucleo144_FSMC.h>
 
@@ -60,7 +79,9 @@ GFX_ILI9341 tft(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BL=D2*/ 4); // my epd
 #endif
 #endif
 
-#endif
+#endif // selected GFX_TFT_CLASS or GFX_TFT_CLASS and GFX_TFT_IO_PLUGIN_CLASS
+
+#endif // not selected by GFX_TFT_known_configurations.h
 
 #if !defined(ESP8266)
 #define yield()
