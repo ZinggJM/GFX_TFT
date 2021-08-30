@@ -24,9 +24,9 @@
 
 // include the hardware specific class (select one)
 //#include <GFX_SPI_TFT/GFX_SSD1283A.h>
-//#include <GFX_SPI_TFT/GFX_SPI_ILI9486.h>
+#include <GFX_SPI_TFT/GFX_SPI_ILI9486.h>
 //#include <GFX_SPI_TFT/GFX_SPI_ILI9488.h>
-#include <GFX_SPI_TFT/GFX_SPI_RA8875.h>
+//#include <GFX_SPI_TFT/GFX_SPI_RA8875.h>
 
 // adapt the constructor parameters to your wiring for the appropriate processor conditional, 
 // or add a new one or adapt the catch all other default
@@ -53,7 +53,7 @@ GFX_SSD1283A tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*LED=*/ 7); //hardware sp
 
 #endif
 
-#if defined(_GFX_ILI9486_H_)
+#if defined(_GFX_SPI_ILI9486_H_)
 #if defined (ESP8266)
 GFX_SPI_ILI9486 tft(/*CS=D8*/ SS, /*DC=D4*/ 2, /*RST=D3*/ 0); // my proto board
 #elif defined(ARDUINO_ARCH_SAM)
@@ -63,6 +63,8 @@ GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 6, /*RST=*/ 5); // my proto board
 // note: can't use SS on MKR1000: is defined as 24, should be 4
 // BUSY -> 5, RST -> 6, DC -> 7, CS-> 4, CLK -> 9, DIN -> 8 // my e-paper connector
 GFX_SPI_ILI9486 tft(/*CS=*/ 4, /*DC=*/ 7, /*RST=*/ 6); // to my proto board
+#elif defined(ARDUINO_ARCH_STM32)
+GFX_SPI_ILI9486 tft(/*CS=*/ SS, /*DC=*/ 6, /*RST=*/ 5); // to my proto board
 #else
 // catch all other default
 GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9); //
