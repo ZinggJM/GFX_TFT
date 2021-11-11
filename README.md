@@ -2,7 +2,9 @@
 
 This library supports some TFTs using GFX_IO (my Adafruit_SPITFT clone)
 
-### Version 1.0.4
+### Version 1.0.5
+- added 18-bit color handling for native SPI use on ILI9486
+#### Version 1.0.4
 - renamed SPI display classes GFX_ILI9486, GFX_ILI9488 to GFX_SPI_ILI9486, GFX_SPI_ILI9488
 - added display classes GFX_ILI9486, GFX_ILI9488, GFX_NT35510, GFX_ST7796S
 - added IO plugins GFX_STM32F103ZET6 and GFX_STM32F103ZET6_FSMC

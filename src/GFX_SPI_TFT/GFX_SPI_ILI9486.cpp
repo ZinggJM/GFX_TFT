@@ -8,7 +8,7 @@
 
 #include "GFX_SPI_ILI9486.h"
 
-#define SPI_SPEED 20000000 // max reliable speed is 20Mhz for RPi SPI kludge
+#define SPI_SPEED 20000000ul // max reliable speed is 20Mhz for RPi SPI kludge
 //#define SPI_SPEED 4000000
 
 #define ILI9486_CASET 0x2A
@@ -42,7 +42,7 @@ GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, 
 }
 
 GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
-                             SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
+                                 SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(width, height, cs_pin, dc_pin, rst_pin)
 #else
@@ -55,7 +55,7 @@ GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
 }
 
 GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
-                             int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
+                                 int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
   SPI_GFX_Class(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _spi16_mode = true;
@@ -142,7 +142,7 @@ void GFX_SPI_ILI9486::init(uint32_t freq)
   else
   {
     writeCommand(0x3A);
-    spiWrite(0x55);  // use 16 bits per pixel color
+    spiWrite(0x66);  // 18 bit colour for native SPI
     writeCommand(0x36);
     spiWrite(0x48);  // MX, BGR == rotation 0
     // PGAMCTRL(Positive Gamma Control)
@@ -306,4 +306,165 @@ void GFX_SPI_ILI9486::enableDisplay(bool enable)
   if (_spi16_mode) writeCommand16(enable ? 0x29 : 0x28);  // Display ON / Display OFF
   else  writeCommand(enable ? 0x29 : 0x28);  // Display ON / Display OFF
   endWrite();
+}
+
+void GFX_SPI_ILI9486::writePixel(int16_t x, int16_t y, uint16_t color)
+{
+  // Clip first...
+  if ((x >= 0) && (x < _width) && (y >= 0) && (y < _height))
+  {
+    // THEN set up transaction (if needed) and draw...
+    setAddrWindow(x, y, 1, 1);
+    _writeColor16(color, 1);
+  }
+  //Serial.print(".");
+}
+
+void GFX_SPI_ILI9486::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+{
+  //  if ((x < 0) || (y < 0) || (w < 1) || (h < 1) || (x + w > _width) || (y + h > _height))
+  //  {
+  //    Serial.print("writeFillRect("); Serial.print(x); Serial.print(", "); Serial.print(y); Serial.print(", "); Serial.print(w); Serial.print(", "); Serial.print(h); Serial.println(") oops? "); delay(1);
+  //  }
+  // a correct clipping is the goal. try to achieve this
+  if (x < 0) w += x, x = 0;
+  if (y < 0) h += y, y = 0;
+  if (x + w > _width) w = _width - x;
+  if (y + h > _height) h = _height - y;
+  if ((w < 1) || (h < 1)) return;
+  setAddrWindow(x, y, w, h);
+  _writeColor16(color, uint32_t(w) * uint32_t(h));
+}
+
+void GFX_SPI_ILI9486::drawPixel(int16_t x, int16_t y, uint16_t color)
+{
+  // Clip first...
+  if ((x >= 0) && (x < _width) && (y >= 0) && (y < _height))
+  {
+    // THEN set up transaction (if needed) and draw...
+    startWrite();
+    setAddrWindow(x, y, 1, 1);
+    _writeColor16(color, 1);
+    endWrite();
+  }
+  //Serial.print(".");
+}
+
+void GFX_SPI_ILI9486::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+{
+  //  if ((x < 0) || (y < 0) || (w < 1) || (h < 1) || (x + w > _width) || (y + h > _height))
+  //  {
+  //    Serial.print("fillRect("); Serial.print(x); Serial.print(", "); Serial.print(y); Serial.print(", "); Serial.print(w); Serial.print(", "); Serial.print(h); Serial.println(") oops? "); delay(1);
+  //  }
+  // a correct clipping is the goal. try to achieve this
+  if (x < 0) w += x, x = 0;
+  if (y < 0) h += y, y = 0;
+  if (x + w > _width) w = _width - x;
+  if (y + h > _height) h = _height - y;
+  if ((w < 1) || (h < 1)) return;
+  startWrite();
+  setAddrWindow(x, y, w, h);
+  _writeColor16(color, uint32_t(w) * uint32_t(h));
+  endWrite();
+}
+
+void GFX_SPI_ILI9486::writeColor(uint16_t color, uint32_t len)
+{
+  _writeColor16(color, len);
+}
+
+void GFX_SPI_ILI9486::writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color)
+{
+  writeFillRect(x, y, w, 1, color);
+}
+
+void GFX_SPI_ILI9486::writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color)
+{
+  writeFillRect(x, y, 1, h, color);
+}
+
+void GFX_SPI_ILI9486::_writeColor16(uint16_t data, uint32_t n)
+{
+  if (_spi16_mode) return writeData16(data, n);
+  if (0 == connection) // TFT_HARD_SPI
+  {
+#if (defined (ESP8266) || defined(ESP32))
+    uint8_t rgb888[] = {uint8_t((data & 0xF800) >> 8), uint8_t((data & 0x07E0) >> 3), uint8_t((data & 0x001F) << 3)};
+    SPI.writePattern(rgb888, 3, n);
+#else // wdt on ESP8266
+    while (n-- > 0)
+    {
+      spiWrite(uint8_t((data & 0xF800) >> 8));
+      spiWrite(uint8_t((data & 0x07E0) >> 3));
+      spiWrite(uint8_t((data & 0x001F) << 3));
+    }
+#endif
+  }
+  else
+  {
+    while (n-- > 0)
+    {
+      spiWrite(uint8_t((data & 0xF800) >> 8));
+      spiWrite(uint8_t((data & 0x07E0) >> 3));
+      spiWrite(uint8_t((data & 0x001F) << 3));
+    }
+  }
+}
+
+#if (defined (ESP8266) || defined(ESP32))
+#define SPI_WRITE_BYTES(data, n) SPI.transferBytes(data, 0, n)
+#elif defined(ARDUINO_ARCH_SAM)
+#define SPI_WRITE_BYTES(data, n) SPI.transfer(SS, data, n)
+#elif (TEENSYDUINO == 147)
+#define SPI_WRITE_BYTES(data, n) SPI.transfer(data, 0, n)
+#elif defined(ARDUINO_ARCH_STM32F1) || defined(ARDUINO_ARCH_STM32F4)
+#define SPI_WRITE_BYTES(data, n) SPI.write(data, n)
+#else
+// valid for all other platforms? else comment out next line
+#define SPI_WRITE_BYTES(data, n) SPI.transfer(data, n)
+#endif
+
+
+void GFX_SPI_ILI9486::_writeColor16(const uint16_t* data, uint32_t n)
+{
+  if (_spi16_mode) return writeData16(data, n);
+  if (0 == connection) // TFT_HARD_SPI
+  {
+#if defined(SPI_WRITE_BYTES)
+    static const uint16_t rgb888_buffer_size = 60; // 64 optimal for ESP8266 SPI
+    static const uint32_t max_chunk = rgb888_buffer_size / 3; // rgb888
+    uint8_t rgb888_buffer[rgb888_buffer_size];
+    while (n > 0)
+    {
+      uint32_t chunk = min(max_chunk, n);
+      n -= chunk;
+      uint8_t* p = rgb888_buffer;
+      uint16_t ncopy = chunk;
+      while (ncopy-- > 0)
+      {
+        *p++ = uint8_t((*data & 0xF800) >> 8);
+        *p++ = uint8_t((*data & 0x07E0) >> 3);
+        *p++ = uint8_t((*data & 0x001F) << 3);
+        data++;
+      }
+      SPI_WRITE_BYTES(rgb888_buffer, 3 * chunk);
+    }
+#else
+    while (n-- > 0)
+    {
+      spiWrite(uint8_t((*data & 0xF800) >> 8));
+      spiWrite(uint8_t((*data & 0x07E0) >> 3));
+      spiWrite(uint8_t((*data & 0x001F) << 3));
+    }
+#endif
+  }
+  else
+  {
+    while (n-- > 0)
+    {
+      spiWrite(uint8_t((*data & 0xF800) >> 8));
+      spiWrite(uint8_t((*data & 0x07E0) >> 3));
+      spiWrite(uint8_t((*data & 0x001F) << 3));
+    }
+  }
 }

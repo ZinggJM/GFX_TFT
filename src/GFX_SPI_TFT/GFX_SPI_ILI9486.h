@@ -36,6 +36,19 @@ class GFX_SPI_ILI9486 : public SPI_GFX_Class
     void invert(bool i);
     void enableDisplay(bool enable);
     void setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+    void writePixel(int16_t x, int16_t y, uint16_t color);
+    void writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
+    void drawPixel(int16_t x, int16_t y, uint16_t color);
+    void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
+    //void writePixels(uint16_t *colors, uint32_t len, bool block = true, bool bigEndian = false); // TO BE ADDED
+    void writeColor(uint16_t color, uint32_t len);
+    void writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
+    void writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
+  private:
+    void _writeCommand16(uint16_t cmd);
+    // note: only use for pixel data, RGB888 on ILI9486
+    void _writeColor16(uint16_t data, uint32_t n);
+    void _writeColor16(const uint16_t* data, uint32_t n);
   private:
     bool _spi16_mode;
     int8_t _bgr;

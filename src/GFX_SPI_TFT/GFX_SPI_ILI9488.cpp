@@ -71,7 +71,6 @@ void GFX_SPI_ILI9488::init(uint32_t freq)
   if (!freq) freq = SPI_SPEED;
   initSPI(freq);
   startWrite();
-#if 1
   writeCommand(0xE0); // Positive Gamma Control
   spiWrite(0x00);
   spiWrite(0x03);
@@ -88,7 +87,6 @@ void GFX_SPI_ILI9488::init(uint32_t freq)
   spiWrite(0x16);
   spiWrite(0x1A);
   spiWrite(0x0F);
-
   writeCommand(0XE1); // Negative Gamma Control
   spiWrite(0x00);
   spiWrite(0x16);
@@ -105,113 +103,40 @@ void GFX_SPI_ILI9488::init(uint32_t freq)
   spiWrite(0x35);
   spiWrite(0x37);
   spiWrite(0x0F);
-
   writeCommand(0XC0); // Power Control 1
   spiWrite(0x17);
   spiWrite(0x15);
-
   writeCommand(0xC1); // Power Control 2
   spiWrite(0x41);
-
   writeCommand(0xC5); // VCOM Control
   spiWrite(0x00);
   spiWrite(0x12);
   spiWrite(0x80);
-
   writeCommand(ILI9488_MADCTL); // Memory Access Control
   spiWrite(0x48);          // MX, BGR
-
   writeCommand(0x3A); // Pixel Interface Format
   spiWrite(0x66);  // 18 bit colour for SPI
-
   writeCommand(0xB0); // Interface Mode Control
   spiWrite(0x00);
-
   writeCommand(0xB1); // Frame Rate Control
   spiWrite(0xA0);
-
   writeCommand(0xB4); // Display Inversion Control
   spiWrite(0x02);
-
   writeCommand(0xB6); // Display Function Control
   spiWrite(0x02);
   spiWrite(0x02);
   spiWrite(0x3B);
-
   writeCommand(0xB7); // Entry Mode Set
   spiWrite(0xC6);
-
   writeCommand(0xF7); // Adjust Control 3
   spiWrite(0xA9);
   spiWrite(0x51);
   spiWrite(0x2C);
   spiWrite(0x82);
-
   writeCommand(0x11);  //Exit Sleep
   delay(120);
-
   writeCommand(0x29);  //Display on
   delay(25);
-#else
-  writeCommand(0x3A);
-  spiWrite(0x55);  // use 16 bits per pixel color
-  writeCommand(0x36);
-  spiWrite(0x48);  // MX, BGR == rotation 0
-  // PGAMCTRL(Positive Gamma Control)
-  writeCommand(0xE0);
-  spiWrite(0x0F);
-  spiWrite(0x1F);
-  spiWrite(0x1C);
-  spiWrite(0x0C);
-  spiWrite(0x0F);
-  spiWrite(0x08);
-  spiWrite(0x48);
-  spiWrite(0x98);
-  spiWrite(0x37);
-  spiWrite(0x0A);
-  spiWrite(0x13);
-  spiWrite(0x04);
-  spiWrite(0x11);
-  spiWrite(0x0D);
-  spiWrite(0x00);
-  // NGAMCTRL(Negative Gamma Control)
-  writeCommand(0xE1);
-  spiWrite(0x0F);
-  spiWrite(0x32);
-  spiWrite(0x2E);
-  spiWrite(0x0B);
-  spiWrite(0x0D);
-  spiWrite(0x05);
-  spiWrite(0x47);
-  spiWrite(0x75);
-  spiWrite(0x37);
-  spiWrite(0x06);
-  spiWrite(0x10);
-  spiWrite(0x03);
-  spiWrite(0x24);
-  spiWrite(0x20);
-  spiWrite(0x00);
-  // Digital Gamma Control 1
-  writeCommand(0xE2);
-  spiWrite(0x0F);
-  spiWrite(0x32);
-  spiWrite(0x2E);
-  spiWrite(0x0B);
-  spiWrite(0x0D);
-  spiWrite(0x05);
-  spiWrite(0x47);
-  spiWrite(0x75);
-  spiWrite(0x37);
-  spiWrite(0x06);
-  spiWrite(0x10);
-  spiWrite(0x03);
-  spiWrite(0x24);
-  spiWrite(0x20);
-  spiWrite(0x00);
-  writeCommand(0x11);  // Sleep OUT
-  delay(150);   // wait some time
-  writeCommand(0x29);  // Display ON
-#endif
   if (_bl_pin >= 0)
   {
     pinMode(_bl_pin, OUTPUT);

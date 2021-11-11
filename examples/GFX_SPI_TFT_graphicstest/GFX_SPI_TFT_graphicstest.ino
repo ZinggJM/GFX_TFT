@@ -55,7 +55,8 @@ GFX_SSD1283A tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*LED=*/ 7); //hardware sp
 
 #if defined(_GFX_SPI_ILI9486_H_)
 #if defined (ESP8266)
-GFX_SPI_ILI9486 tft(/*CS=D8*/ SS, /*DC=D4*/ 2, /*RST=D3*/ 0); // my proto board
+GFX_SPI_ILI9486 tft(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2); // my D1 mini connection shield for e-paper displays
+//GFX_SPI_ILI9486 tft(/*CS=D8*/ SS, /*DC=D4*/ 2, /*RST=D3*/ 0); // my proto board for RPi display
 #elif defined(ARDUINO_ARCH_SAM)
 GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 6, /*RST=*/ 5); // my proto board
 #elif defined(ARDUINO_ARCH_SAMD)
@@ -64,7 +65,7 @@ GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 6, /*RST=*/ 5); // my proto board
 // BUSY -> 5, RST -> 6, DC -> 7, CS-> 4, CLK -> 9, DIN -> 8 // my e-paper connector
 GFX_SPI_ILI9486 tft(/*CS=*/ 4, /*DC=*/ 7, /*RST=*/ 6); // to my proto board
 #elif defined(ARDUINO_ARCH_STM32)
-GFX_SPI_ILI9486 tft(/*CS=*/ SS, /*DC=*/ 6, /*RST=*/ 5); // to my proto board
+GFX_SPI_ILI9486 tft(/*CS=*/ 9, /*DC=*/ 6, /*RST=*/ 5); // to my proto board
 #else
 // catch all other default
 GFX_SPI_ILI9486 tft(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9); //
@@ -121,6 +122,11 @@ void setup()
   Serial.println();
   Serial.println("setup");
   //Serial.println(String(controller.name) + " Test on " + String(io.name));
+
+#if defined(_GFX_SPI_ILI9486_H_)
+  // uncomment for normal SPI mode; default true used for "special" SPI circuit found e.g. on 3.5" RPI HVGA display
+  tft.setSpiKludge(false); // false to disable rpi_spi16_mode
+#endif
 
   tft.init();
 
