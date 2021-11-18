@@ -16,10 +16,10 @@
 class GFX_SPI_ILI9488 : public GFX_TFT_IO
 {
   public:
-    GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
-    GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin = -1);
-    GFX_SPI_ILI9488(uint16_t width, uint16_t height, SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
-    GFX_SPI_ILI9488(uint16_t width, uint16_t height, int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
+    GFX_SPI_ILI9488(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
+    GFX_SPI_ILI9488(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin = -1);
+    GFX_SPI_ILI9488(uint16_t width, uint16_t height, SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
+    GFX_SPI_ILI9488(uint16_t width, uint16_t height, int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
     void setRotation(uint8_t r);
@@ -41,7 +41,7 @@ class GFX_SPI_ILI9488 : public GFX_TFT_IO
     void _writeColor16(uint16_t data, uint32_t n);
     void _writeColor16(const uint16_t* data, uint32_t n);
   private:
-    int8_t _bl_pin;
+    int16_t _bl_pin;
     int8_t _bgr;
 };
 

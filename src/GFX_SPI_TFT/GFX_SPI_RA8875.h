@@ -17,9 +17,9 @@
 class GFX_SPI_RA8875 : public GFX_TFT_IO
 {
   public:
-    GFX_SPI_RA8875(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
-    GFX_SPI_RA8875(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin = -1);
-    GFX_SPI_RA8875(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
+    GFX_SPI_RA8875(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
+    GFX_SPI_RA8875(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin = -1);
+    GFX_SPI_RA8875(SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
     void setRotation(uint8_t r);
@@ -70,7 +70,7 @@ class GFX_SPI_RA8875 : public GFX_TFT_IO
     uint8_t _rotation;
     uint16_t _tft_width, _tft_height; // physical
     bool _is_clipping;
-    int8_t _cs_pin, _bl_pin;
+    int16_t _cs_pin, _bl_pin;
 };
 
 #define GFX_TFT_CLASS GFX_SPI_RA8875

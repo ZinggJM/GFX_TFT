@@ -44,7 +44,7 @@ class GFX_STM32F407VET6_FSMC : public GFX_TFT_IO_Plugin
     void writeData16(const uint16_t* data, uint32_t n);
     void enableBacklight(bool enable = true);
   private:
-    int8_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
+    int16_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
     bool _bl_active_high;
 };
 

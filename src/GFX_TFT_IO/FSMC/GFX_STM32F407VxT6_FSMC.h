@@ -22,7 +22,7 @@
 #include "../GFX_TFT_IO_Plugin.h"
 
 #if defined(ARDUINO_ARCH_STM32) && defined(STM32F407xx) && !defined(STM32GENERIC) // "STM32 Boards (select from submenu)"
-#if defined(ARDUINO_GENERIC_F407VE) || defined(ARDUINO_GENERIC_F407VG)
+#if defined(ARDUINO_GENERIC_F407VETX) || defined(ARDUINO_GENERIC_F407VGTX)
 
 class GFX_STM32F407VxT6_FSMC : public GFX_TFT_IO_Plugin
 {
@@ -44,7 +44,7 @@ class GFX_STM32F407VxT6_FSMC : public GFX_TFT_IO_Plugin
     void writeData16(const uint16_t* data, uint32_t n);
     void enableBacklight(bool enable = true);
   private:
-    int8_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
+    int16_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
     bool _bl_active_high;
 };
 

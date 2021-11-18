@@ -23,7 +23,7 @@
 #include "../GFX_TFT_IO_Plugin.h"
 
 #if defined(ARDUINO_ARCH_STM32)&& defined(STM32F1xx) && !defined(STM32GENERIC) // "STM32 Boards (select from submenu)"
-#if defined(ARDUINO_Generic_F103ZE)
+#if defined(ARDUINO_GENERIC_F103ZETX)
 
 class GFX_STM32F103ZET6M3_FSMC : public GFX_TFT_IO_Plugin
 {

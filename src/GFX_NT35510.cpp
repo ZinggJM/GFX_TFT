@@ -26,7 +26,7 @@
 
 #define RGB_or_BGR 0x00 // RGB
 
-GFX_NT35510::GFX_NT35510(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_NT35510::GFX_NT35510(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, rst_pin)
 #else
@@ -37,14 +37,14 @@ GFX_NT35510::GFX_NT35510(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl
   _bgr = RGB_or_BGR;
 }
 
-GFX_NT35510::GFX_NT35510(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_NT35510::GFX_NT35510(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin) :
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
   _bgr = RGB_or_BGR;
 }
 
-GFX_NT35510::GFX_NT35510(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_NT35510::GFX_NT35510(SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, rst_pin)
 #else

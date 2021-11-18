@@ -23,7 +23,7 @@
 #define MADCTL_BGR 0x08
 #define MADCTL_MH  0x04
 
-GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
+GFX_SPI_ILI9486::GFX_SPI_ILI9486(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(320, 480, cs_pin, dc_pin, rst_pin)
 #else
@@ -34,7 +34,7 @@ GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
   _bgr = MADCTL_BGR;
 }
 
-GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
+GFX_SPI_ILI9486::GFX_SPI_ILI9486(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin) :
   SPI_GFX_Class(320, 480, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _spi16_mode = true;
@@ -42,7 +42,7 @@ GFX_SPI_ILI9486::GFX_SPI_ILI9486(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, 
 }
 
 GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
-                                 SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin) :
+                                 SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(width, height, cs_pin, dc_pin, rst_pin)
 #else
@@ -55,7 +55,7 @@ GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
 }
 
 GFX_SPI_ILI9486::GFX_SPI_ILI9486(uint16_t width, uint16_t height,
-                                 int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin) :
+                                 int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin) :
   SPI_GFX_Class(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _spi16_mode = true;

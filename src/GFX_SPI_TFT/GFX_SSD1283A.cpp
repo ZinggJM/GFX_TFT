@@ -7,7 +7,7 @@
 
 #include "GFX_SSD1283A.h"
 
-GFX_SSD1283A::GFX_SSD1283A(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SSD1283A::GFX_SSD1283A(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(130, 130, cs_pin, dc_pin, rst_pin)
 #else
@@ -18,7 +18,7 @@ GFX_SSD1283A::GFX_SSD1283A(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t 
   _inversion_bit = 0;
 }
 
-GFX_SSD1283A::GFX_SSD1283A(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SSD1283A::GFX_SSD1283A(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin) :
   SPI_GFX_Class(130, 130, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
@@ -26,7 +26,7 @@ GFX_SSD1283A::GFX_SSD1283A(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t
 }
 
 GFX_SSD1283A::GFX_SSD1283A(uint16_t width, uint16_t height,
-                                   SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+                                   SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   SPI_GFX_Class(width, height, cs_pin, dc_pin, rst_pin)
 #else
@@ -39,7 +39,7 @@ GFX_SSD1283A::GFX_SSD1283A(uint16_t width, uint16_t height,
 }
 
 GFX_SSD1283A::GFX_SSD1283A(uint16_t width, uint16_t height,
-                                   int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+                                   int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin) :
   SPI_GFX_Class(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;

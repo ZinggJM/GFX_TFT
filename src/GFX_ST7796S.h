@@ -20,9 +20,9 @@
 class GFX_ST7796S : public GFX_TFT_IO
 {
   public:
-    GFX_ST7796S(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
-    GFX_ST7796S(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin = -1);
-    GFX_ST7796S(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
+    GFX_ST7796S(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
+    GFX_ST7796S(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin = -1);
+    GFX_ST7796S(SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
     GFX_ST7796S(GFX_TFT_IO_Plugin& plugin);
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
@@ -32,7 +32,7 @@ class GFX_ST7796S : public GFX_TFT_IO
     void enableDisplay(bool enable);
     void setAddrWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
   private:
-    int8_t _bl_pin;
+    int16_t _bl_pin;
     int8_t _bgr;
 };
 

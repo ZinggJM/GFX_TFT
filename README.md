@@ -2,7 +2,10 @@
 
 This library supports some TFTs using GFX_IO (my Adafruit_SPITFT clone)
 
-### Version 1.0.5
+### Version 1.0.6
+- fix for STM32 official package pin number range (int16_t)
+- update of conditional compile conditions to macros of actual STM32 package
+#### Version 1.0.5
 - added 18-bit color handling for native SPI use on ILI9486
 #### Version 1.0.4
 - renamed SPI display classes GFX_ILI9486, GFX_ILI9488 to GFX_SPI_ILI9486, GFX_SPI_ILI9488

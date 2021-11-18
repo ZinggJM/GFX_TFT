@@ -6,24 +6,24 @@
 
 #include "GFX_TFT_IO.h"
 
-GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, int8_t cs, int8_t dc, int8_t mosi, int8_t sck, int8_t rst, int8_t miso) :
+GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, int16_t cs, int16_t dc, int16_t mosi, int16_t sck, int16_t rst, int16_t miso) :
   GFX_IO(w, h, cs, dc, mosi, sck, rst, miso)
 {
 }
 
-GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, int8_t cs, int8_t dc, int8_t rst) :
+GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, int16_t cs, int16_t dc, int16_t rst) :
   GFX_IO(w, h, cs, dc, rst)
 {
 }
 
 #if !defined(ESP8266)
-GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, SPIClass *spiClass, int8_t cs, int8_t dc, int8_t rst) :
+GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, SPIClass *spiClass, int16_t cs, int16_t dc, int16_t rst) :
   GFX_IO(w, h, spiClass, cs, dc, rst)
 {
 }
 #endif // end !ESP8266
 
-GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, tftBusWidth busWidth, int8_t d0, int8_t wr, int8_t dc, int8_t cs, int8_t rst, int8_t rd) :
+GFX_TFT_IO::GFX_TFT_IO(uint16_t w, uint16_t h, tftBusWidth busWidth, int16_t d0, int16_t wr, int16_t dc, int16_t cs, int16_t rst, int16_t rd) :
   GFX_IO(w, h, busWidth, d0, wr, dc, cs, rst, rd)
 {
 }

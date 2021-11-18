@@ -21,7 +21,7 @@
 #define MADCTL_BGR 0x08
 #define MADCTL_MH  0x04
 
-GFX_SPI_ILI9488::GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_ILI9488::GFX_SPI_ILI9488(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(320, 480, cs_pin, dc_pin, rst_pin)
 #else
@@ -32,7 +32,7 @@ GFX_SPI_ILI9488::GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, i
   _bgr = MADCTL_BGR;
 }
 
-GFX_SPI_ILI9488::GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_ILI9488::GFX_SPI_ILI9488(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin) :
   GFX_TFT_IO(320, 480, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;
@@ -40,7 +40,7 @@ GFX_SPI_ILI9488::GFX_SPI_ILI9488(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, 
 }
 
 GFX_SPI_ILI9488::GFX_SPI_ILI9488(uint16_t width, uint16_t height,
-                         SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+                         SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(width, height, cs_pin, dc_pin, rst_pin)
 #else
@@ -53,7 +53,7 @@ GFX_SPI_ILI9488::GFX_SPI_ILI9488(uint16_t width, uint16_t height,
 }
 
 GFX_SPI_ILI9488::GFX_SPI_ILI9488(uint16_t width, uint16_t height,
-                         int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+                         int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin) :
   GFX_TFT_IO(width, height, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _bl_pin = bl_pin;

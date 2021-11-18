@@ -2,35 +2,35 @@
 //
 // can be used to select a configuration by uncommenting the corresponding line
 //
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6        // "Generic STM32F1 series", "Generic F103ZE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6_FSMC   // "Generic STM32F1 series", "Generic F103ZE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6M3      // "Generic STM32F1 series", "Generic F103ZE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6M3_FSMC // "Generic STM32F1 series", "Generic F103ZE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VET6        // "Generic STM32F4 series", "Black F407VE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VET6_FSMC   // "Generic STM32F4 series", "Black F407VE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VxT6        // "Generic STM32F4 series", "Generic F407VE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VxT6_FSMC   // "Generic STM32F4 series", "Generic F407VE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZET6        // "Generic STM32F4 series", "Black F407ZE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZET6_FSMC   // "Generic STM32F4 series", "Black F407ZE" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZGM4        // "Generic STM32F4 series", "Black F407ZG" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZGM4_FSMC   // "Generic STM32F4 series", "Black F407ZG" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_Nucleo144            // "Nucleo-144", "Nucleo F767ZI" or "Nucleo F746ZG" // ok
-//#define USE_3i2_TFT_320x240_ILI9341_Nucleo144_FSMC       // "Nucleo-144", "Nucleo F767ZI" or "Nucleo F746ZG" // ok
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6        // "Generic STM32F1 series", "Generic F103ZETx" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6_FSMC   // "Generic STM32F1 series", "Generic F103ZETx" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6M3      // "Generic STM32F1 series", "Generic F103ZETx" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6M3_FSMC // "Generic STM32F1 series", "Generic F103ZETx" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VET6        // "Generic STM32F4 series", "Black F407VE" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VET6_FSMC   // "Generic STM32F4 series", "Black F407VE" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VxT6        // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407VxT6_FSMC   // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZET6        // "Generic STM32F4 series", "Black F407ZE" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZET6_FSMC   // "Generic STM32F4 series", "Black F407ZE" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZGM4        // "Generic STM32F4 series", "Black F407ZG" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_STM32F407ZGM4_FSMC   // "Generic STM32F4 series", "Black F407ZG" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_Nucleo144            // "Nucleo-144", "Nucleo F767ZI" or "Nucleo F746ZG" // ok.
+//#define USE_3i2_TFT_320x240_ILI9341_Nucleo144_FSMC       // "Nucleo-144", "Nucleo F767ZI" or "Nucleo F746ZG" // ok.
 //
-//#define USE_3i5_TFT_480x320_ILI9486_STM32F103ZET6M3      // "Generic STM32F1 series", "Generic F103ZE" // ok
-//#define USE_3i5_TFT_480x320_ILI9486_STM32F103ZET6M3_FSMC // "Generic STM32F1 series", "Generic F103ZE" // ok
-//#define USE_3i5_TFT_480x320_ILI9486_STM32F407VxT6        // "Generic STM32F4 series", "Generic F407VE" // ok
-//#define USE_3i5_TFT_480x320_ILI9486_STM32F407VxT6_FSMC   // "Generic STM32F4 series", "Generic F407VE"
-//#define USE_3i5_TFT_480x320_ILI9486_STM32F407ZGM4        // "Generic STM32F4 series", "Black F407ZG" // ok
-//#define USE_3i5_TFT_480x320_ILI9486_STM32F407ZGM4_FSMC   // "Generic STM32F4 series", "Black F407ZG" // ok
-//#define USE_3i97_800x480_NT35510_STM32F407VxT6           // "Generic STM32F4 series", "Generic F407VE" // ok
-//#define USE_3i97_800x480_NT35510_STM32F407VxT6_FSMC      // "Generic STM32F4 series", "Generic F407VE" // ok
-//#define USE_3i97_800x480_OTM8009A_STM32F407VxT6          // "Generic STM32F4 series", "Generic F407VE" // LDO version needs 5V on pin 24, ok
-//#define USE_3i97_800x480_OTM8009A_STM32F407VxT6_FSMC     // "Generic STM32F4 series", "Generic F407VE" // LDO version needs 5V on pin 24, ok
-//#define USE_3i97_800x480_OTM8009A_STM32F407ZGM4          // "Generic STM32F4 series", "Black F407ZG" // ok
-//#define USE_3i97_800x480_OTM8009A_STM32F407ZGM4_FSMC     // "Generic STM32F4 series", "Black F407ZG" // ok
-//#define USE_4i0_480x320_ST7796S_STM32F407VxT6            // "Generic STM32F4 series", "Generic F407VE" // ok
-//#define USE_4i0_480x320_ST7796S_STM32F407VxT6_FSMC       // "Generic STM32F4 series", "Generic F407VE" // ok
+//#define USE_3i5_TFT_480x320_ILI9486_STM32F103ZET6M3      // "Generic STM32F1 series", "Generic F103ZETx" // ok.
+//#define USE_3i5_TFT_480x320_ILI9486_STM32F103ZET6M3_FSMC // "Generic STM32F1 series", "Generic F103ZETx" // ok.
+//#define USE_3i5_TFT_480x320_ILI9486_STM32F407VxT6        // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_3i5_TFT_480x320_ILI9486_STM32F407VxT6_FSMC   // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_3i5_TFT_480x320_ILI9486_STM32F407ZGM4        // "Generic STM32F4 series", "Black F407ZG" // ok.
+//#define USE_3i5_TFT_480x320_ILI9486_STM32F407ZGM4_FSMC   // "Generic STM32F4 series", "Black F407ZG" // ok.
+//#define USE_3i97_800x480_NT35510_STM32F407VxT6           // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_3i97_800x480_NT35510_STM32F407VxT6_FSMC      // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_3i97_800x480_OTM8009A_STM32F407VxT6          // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx" // LDO version needs strong 5V on pin 24, ok.
+//#define USE_3i97_800x480_OTM8009A_STM32F407VxT6_FSMC     // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx" // LDO version needs strong 5V on pin 24, ok.
+//#define USE_3i97_800x480_OTM8009A_STM32F407ZGM4          // "Generic STM32F4 series", "Black F407ZG" // ok.
+//#define USE_3i97_800x480_OTM8009A_STM32F407ZGM4_FSMC     // "Generic STM32F4 series", "Black F407ZG" // ok.
+//#define USE_4i0_480x320_ST7796S_STM32F407VxT6            // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
+//#define USE_4i0_480x320_ST7796S_STM32F407VxT6_FSMC       // "Generic STM32F4 series", "Generic F407VETx" or "Generic F407VGTx"// ok.
 
 #ifdef USE_3i2_TFT_320x240_ILI9341_STM32F103ZET6
 // tft https://www.aliexpress.com/item/3-2-inch-TFT-LCD-screen-with-resistive-touch-screens-ILI9341-display-module/32662835059.html

@@ -214,7 +214,7 @@
 #define RA8875_INTC2_TP         0x04
 #define RA8875_INTC2_BTE        0x02
 
-GFX_SPI_RA8875::GFX_SPI_RA8875(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_RA8875::GFX_SPI_RA8875(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, rst_pin)
 #else
@@ -225,14 +225,14 @@ GFX_SPI_RA8875::GFX_SPI_RA8875(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int
   _bl_pin = bl_pin;
 }
 
-GFX_SPI_RA8875::GFX_SPI_RA8875(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_RA8875::GFX_SPI_RA8875(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin) :
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, mosi_pin, sclk_pin, rst_pin, -1)
 {
   _cs_pin = cs_pin;
   _bl_pin = bl_pin;
 }
 
-GFX_SPI_RA8875::GFX_SPI_RA8875(SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin, int8_t bl_pin) :
+GFX_SPI_RA8875::GFX_SPI_RA8875(SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin, int16_t bl_pin) :
 #if defined(ESP8266)
   GFX_TFT_IO(480, 800, cs_pin, dc_pin, rst_pin)
 #else
@@ -259,6 +259,7 @@ void GFX_SPI_RA8875::init(uint32_t freq)
   setSPISpeed(4000000); // needs lower speed for setup
   startWrite();
   _writeReg(RA8875_P1CR, 0x40);
+  _writeReg(RA8875_P2CR, 0x40);
   _writeReg(RA8875_PLLC1, RA8875_PLLC1_PLLDIV1 + 10);
   delay(1);
   _writeReg(RA8875_PLLC2, RA8875_PLLC2_DIV4);

@@ -19,7 +19,7 @@
 #include "GFX_TFT_IO_Plugin.h"
 
 #if defined(ARDUINO_ARCH_STM32)&& defined(STM32F1xx) && !defined(STM32GENERIC) // "STM32 Boards (select from submenu)"
-#if defined(ARDUINO_Generic_F103ZE)
+#if defined(ARDUINO_GENERIC_F103ZETX)
 
 class GFX_STM32F103ZET6 : public GFX_TFT_IO_Plugin
 {
@@ -43,7 +43,7 @@ class GFX_STM32F103ZET6 : public GFX_TFT_IO_Plugin
   private:
     void setDataPinsOutput();
     void setDataPinsInput();
-    int8_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
+    int16_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
 };
 
 #define GFX_TFT_IO_PLUGIN_CLASS GFX_STM32F103ZET6

@@ -14,12 +14,12 @@
 class GFX_TFT_IO : public GFX_IO
 {
   public:
-    GFX_TFT_IO(uint16_t w, uint16_t h, int8_t cs, int8_t dc, int8_t mosi, int8_t sck, int8_t rst = -1, int8_t miso = -1);
-    GFX_TFT_IO(uint16_t w, uint16_t h, int8_t cs, int8_t dc, int8_t rst = -1);
+    GFX_TFT_IO(uint16_t w, uint16_t h, int16_t cs, int16_t dc, int16_t mosi, int16_t sck, int16_t rst = -1, int16_t miso = -1);
+    GFX_TFT_IO(uint16_t w, uint16_t h, int16_t cs, int16_t dc, int16_t rst = -1);
 #if !defined(ESP8266)
-    GFX_TFT_IO(uint16_t w, uint16_t h, SPIClass *spiClass, int8_t cs, int8_t dc, int8_t rst = -1);
+    GFX_TFT_IO(uint16_t w, uint16_t h, SPIClass *spiClass, int16_t cs, int16_t dc, int16_t rst = -1);
 #endif // end !ESP8266
-    GFX_TFT_IO(uint16_t w, uint16_t h, tftBusWidth busWidth, int8_t d0, int8_t wr, int8_t dc, int8_t cs = -1, int8_t rst = -1, int8_t rd = -1);
+    GFX_TFT_IO(uint16_t w, uint16_t h, tftBusWidth busWidth, int16_t d0, int16_t wr, int16_t dc, int16_t cs = -1, int16_t rst = -1, int16_t rd = -1);
     GFX_TFT_IO(uint16_t w, uint16_t h, GFX_TFT_IO_Plugin* plugin);
     // (overridden) virtual methods, use writeData16() for use with GFX_TFT_IO_Plugin!
     virtual void startWrite();

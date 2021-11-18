@@ -40,7 +40,7 @@ class GFX_STM32F103C_TIKY : public GFX_TFT_IO_Plugin
   private:
     void setDataPinsOutput();
     void setDataPinsInput();
-    int8_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
+    int16_t _cs, _rs, _rst, _wr, _rd, _bl; // Control lines
     bool _bl_active_high;
 };
 

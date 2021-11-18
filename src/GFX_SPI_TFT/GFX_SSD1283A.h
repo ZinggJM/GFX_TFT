@@ -23,10 +23,10 @@
 class GFX_SSD1283A : public SPI_GFX_Class
 {
   public:
-    GFX_SSD1283A(int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
-    GFX_SSD1283A(int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin, int8_t bl_pin = -1);
-    GFX_SSD1283A(uint16_t width, uint16_t height, SPIClass *spi, int8_t cs_pin, int8_t dc_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
-    GFX_SSD1283A(uint16_t width, uint16_t height, int8_t cs_pin, int8_t dc_pin, int8_t mosi_pin, int8_t sclk_pin, int8_t rst_pin = -1, int8_t bl_pin = -1);
+    GFX_SSD1283A(int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
+    GFX_SSD1283A(int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin, int16_t bl_pin = -1);
+    GFX_SSD1283A(uint16_t width, uint16_t height, SPIClass *spi, int16_t cs_pin, int16_t dc_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
+    GFX_SSD1283A(uint16_t width, uint16_t height, int16_t cs_pin, int16_t dc_pin, int16_t mosi_pin, int16_t sclk_pin, int16_t rst_pin = -1, int16_t bl_pin = -1);
     void begin(uint32_t freq);
     void init(uint32_t freq = 0);
     void setRotation(uint8_t r);
@@ -38,7 +38,7 @@ class GFX_SSD1283A : public SPI_GFX_Class
     void _writeCommandData16(uint8_t cmd, uint16_t data);
     void _init_table16(const void *table, int16_t size);
   private:
-    int8_t _bl_pin;
+    int16_t _bl_pin;
     uint16_t _inversion_bit;
 };
 
